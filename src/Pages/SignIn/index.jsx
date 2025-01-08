@@ -16,7 +16,6 @@ function SignIn() {
     const noAccountInLocalState = context.account ? Object.keys(context.account).length === 0 : true
     const hasUserAnAccount = !noAccountInLocalState || !noAccountInLocalState
 
-<<<<<<< HEAD
     const handleSignIn = () => {
         const strigifiedSignOut = JSON.stringify(false)
         localStorage.setItem('sign-out', strigifiedSignOut)
@@ -25,8 +24,6 @@ function SignIn() {
         return <Navigate replace to={'/'}></Navigate>
     } 
 
-=======
->>>>>>> lab-reto6
     const createAnAccount = () => {
         const formData = new FormData(form.current)
         const data = {
@@ -43,13 +40,6 @@ function SignIn() {
         handleSignIn()
     }
 
-    const handleSignIn = () => {
-        const strigifiedSignOut = JSON.stringify(false)
-        localStorage.setItem('sign-out', strigifiedSignOut)
-        context.setSignOut(false)
-
-        return <Navigate replace to={'/'}></Navigate>
-    } 
 
     const renderLogIn = () => {
         return (

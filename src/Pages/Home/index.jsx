@@ -15,7 +15,7 @@ function Home() {
                         ))
                 )
             } else {
-                <div>We don't have anything</div>
+                <div>We don´t have anything</div>
             }
         }
 
