@@ -1,10 +1,11 @@
-import { useContext } from "react"
+import { useContext, useState } from "react"
 import { Link } from "react-router-dom"
 import { ShoppingCartContext } from "../../Context"
 import Layout from "../../Components/Layout"
 
 function SignIn() {
     const context = useContext(ShoppingCartContext)
+    const [view, setView] = useState('user-info')
 
 // Account
     const account = localStorage.getItem('account')
@@ -14,9 +15,8 @@ function SignIn() {
     const noAccountInLocalState = context.account ? Object.keys(context.account).length === 0 : true
     const hasUserAnAccount = !noAccountInLocalState || !noAccountInLocalState
 
-    return (
-        <Layout>
-            <h1 className="font-medium text-xl text-center mb-6 w-80">Welcome</h1>
+    const renderLogIn = () => {
+        return (
             <div className="flex flex-col w-88">
                 <p>
                     <span className="font-light text-sm"> Email: </span>
@@ -32,8 +32,21 @@ function SignIn() {
                 <div className="text-center">
                     <a className="font-light text-xs underline underline-offset-4" href="/">Forgot my password</a>
                 </div>
-                <button className="border border-black disabled:text-black/40 disabled:border-black/40 rounded-lg mt-6 py-3" disabled={hasUserAnAccount}>Sign Up</button>
+                <button className="border border-black disabled:text-black/40 disabled:border-black/40 rounded-lg mt-6 py-3" disabled={hasUserAnAccount} onClick={() => setView('create-user-info')}>Sign Up</button>
             </div>
+        )
+    }
+
+    const renderCreateUserInfo = () => {
+        
+    }
+
+    const renderView = () => view === 'create-user-info' ? renderCreateUserInfo() : renderLogIn()
+
+    return (
+        <Layout>
+            <h1 className="font-medium text-xl text-center mb-6 w-80">Welcome</h1>
+            {renderView()}
         </Layout>
     )
 }
