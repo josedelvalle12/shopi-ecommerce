@@ -1,5 +1,5 @@
 import { useContext, useState, useRef } from "react"
-import { Link } from "react-router-dom"
+import { Link, Navigate } from "react-router-dom"
 import { ShoppingCartContext } from "../../Context"
 import Layout from "../../Components/Layout"
 
@@ -16,7 +16,13 @@ function SignIn() {
     const noAccountInLocalState = context.account ? Object.keys(context.account).length === 0 : true
     const hasUserAnAccount = !noAccountInLocalState || !noAccountInLocalState
 
+    const handleSignIn = () => {
+        const strigifiedSignOut = JSON.stringify(false)
+        localStorage.setItem('sign-out', strigifiedSignOut)
+        context.setSignOut(false)
 
+        return <Navigate replace to={'/'}></Navigate>
+    } 
 
     const createAnAccount = () => {
         const formData = new FormData(form.current)
