@@ -30,8 +30,8 @@ function SignIn() {
     const createAnAccount = () => {
         const formData = new FormData(form.current)
         const data = {
-            name: formData.get('name')
-            email: formData.get('email')
+            name: formData.get('name'),
+            email: formData.get('email'),
             password: formData.get('password')
         }
         // Create account
