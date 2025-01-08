@@ -28,12 +28,12 @@ const AppRoutes = () => {
   const isUserSignOut = context.signOut || parsedSignOut
 
   let routes = useRoutes([
-    { path: '/', element: hasUserAnAccount && !isUserSignOut ? <Home></Home> : <Navigate replace to={'sign-in'}></Navigate> },
-    { path: '/clothes', element: hasUserAnAccount && !isUserSignOut ? <Home></Home> : <Navigate replace to={'sign-in'}></Navigate> },
-    { path: '/electronics', element: hasUserAnAccount && !isUserSignOut ? <Home></Home> : <Navigate replace to={'sign-in'}></Navigate> },
-    { path: '/furnitures', element: hasUserAnAccount && !isUserSignOut ? <Home></Home> : <Navigate replace to={'sign-in'}></Navigate> },
-    { path: '/toys', element: hasUserAnAccount && !isUserSignOut ? <Home></Home> : <Navigate replace to={'sign-in'}></Navigate> },
-    { path: '/others', element: hasUserAnAccount && !isUserSignOut ? <Home></Home> : <Navigate replace to={'sign-in'}></Navigate> },
+    { path: '/', element: hasUserAnAccount && !isUserSignOut ? <Home></Home> : <Navigate replace to={'/sign-in'}></Navigate> },
+    { path: '/clothes', element: hasUserAnAccount && !isUserSignOut ? <Home></Home> : <Navigate replace to={'/sign-in'}></Navigate> },
+    { path: '/electronics', element: hasUserAnAccount && !isUserSignOut ? <Home></Home> : <Navigate replace to={'/sign-in'}></Navigate> },
+    { path: '/furnitures', element: hasUserAnAccount && !isUserSignOut ? <Home></Home> : <Navigate replace to={'/sign-in'}></Navigate> },
+    { path: '/toys', element: hasUserAnAccount && !isUserSignOut ? <Home></Home> : <Navigate replace to={'/sign-in'}></Navigate> },
+    { path: '/others', element: hasUserAnAccount && !isUserSignOut ? <Home></Home> : <Navigate replace to={'/sign-in'}></Navigate> },
     { path: '/my-account', element: <MyAccount></MyAccount> },
     { path: '/my-order', element: <MyOrder></MyOrder> },
     { path: '/my-orders', element: <MyOrders></MyOrders> },
@@ -48,7 +48,7 @@ const AppRoutes = () => {
 
 function App() {
   initializeLocalStorage()
-  
+
   return (
     <ShoppingCartProvider>
       <BrowserRouter>
