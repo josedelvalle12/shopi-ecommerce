@@ -2,6 +2,7 @@ import { useContext } from "react"
 import { NavLink } from "react-router-dom"
 import { ShoppingBagIcon } from "@heroicons/react/24/outline"
 import { ShoppingCartContext } from "../../Context"
+import ShoppingCart from "../ShoppingCart"
 
 const Navbar = () => {
     const context = useContext(ShoppingCartContext)
@@ -12,19 +13,22 @@ const signOut = localStorage.getItem('sign-out')
 const parsedSignOut = JSON.parse(signOut)
 const isUserSignOut = context.signOut || parsedSignOut
 
+// Account
+const account = localStorage.getItem('account')
+const parsedAccount = JSON.parse(account)
+// Has an account
+const noAccountInLocalStorage = parsedAccount ? Object.keys(parsedAccount).length === 0 : true
+const noAccountInLocalState = context.account ? Object.keys(account).length === 0 : true
+const hasUserAnAccount = !noAccountInLocalStorage || !noAccountInLocalState
+
+const handleSignOut = () => {
+    const stringifiedSingOut = JSON.stringify(true)
+    localStorage.setItem('sign-out', stringifiedSingOut)
+    context.setSignOut(true)
+}
+
 const renderView = () => {
-    if (isUserSignOut) {
-        return (
-            <li>
-                <NavLink 
-                to='/sign-in'
-                className={({ isActive }) => isActive ? activeStyle : undefined}
-                onClick={() => handleSignOut()}>
-                Sign Out
-                </NavLink>
-            </li>
-        )
-    } else {
+    if (hasUserAnAccount && !isUserSignOut) {
         return (
             <>
                 <li className="text-black/60">
@@ -54,21 +58,27 @@ const renderView = () => {
                 </li>
             </>
         )
+    } else {
+        return (
+            <li>
+                <NavLink 
+                to='/sign-in'
+                className={({ isActive }) => isActive ? activeStyle : undefined}
+                onClick={() => handleSignOut()}>
+                Sign In
+                </NavLink>
+            </li>
+        )
     }
 }
 
-    const handleSignOut = () => {
-        const stringifiedSingOut = JSON.stringify(true)
-        localStorage.setItem('sign-out', stringifiedSingOut)
-        context.setSignOut(true)
-    }
 
     return (
         <nav className="flex justify-between items-center fixed z-10 top-0 w-full py-5 px-8 text-sm font-light">
             <ul className="flex items-center gap-3">
                 <li className="font-bold text-lg">
                     <NavLink 
-                    to='/'>
+                    to={`${isUserSignOut ? '/sign-in' : '/'}`}>
                     Shopi
                     </NavLink>
                 </li>
@@ -124,11 +134,8 @@ const renderView = () => {
 
             <ul className="flex items-center gap-3">
                 {renderView()}
-                <li className="flex items-center justify-center">
-                    <ShoppingBagIcon className="h-6 w-6 text-black"></ShoppingBagIcon> 
-                    <div>
-                        {context.cartProducts.length}
-                    </div>
+                <li className="flex items-center ">
+                    <ShoppingCart></ShoppingCart>
                 </li>
             </ul>
         </nav>
